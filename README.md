@@ -4,6 +4,7 @@ This is a Spring Boot web application exercise. And it's a game of Go :)
 This is also the first time I create a project on GitHub, so: Hello World!
 
 # What you'll need
+* [Git](https://git-scm.com/download/win)
 * [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/index.html) or later
 * [Maven 3.0+](http://maven.apache.org/download.cgi)
 * [Redis](http://redis.io/download) (For Windows, see [here](https://github.com/MSOpenTech/redis/releases). You may need to change the user running the Redis service during installation process, and start the service again to successfully install Redis for Windows)
