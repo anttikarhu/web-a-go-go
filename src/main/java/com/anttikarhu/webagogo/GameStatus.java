@@ -99,7 +99,7 @@ public class GameStatus {
 	/**
 	 * Gets the board. Board is a grid of stone positions, or intersections.
 	 * 
-	 * @return Board array. All the indices contain a non-null Position value.
+	 * @return Board arrays as [y][x]. All the indices contain a non-null Position value.
 	 */
 	public Position[][] getBoard() {
 		return board;
@@ -108,7 +108,7 @@ public class GameStatus {
 	/**
 	 * Sets the board. Board is a grid of stone positions, or intersections.
 	 * 
-	 * @return Board array. All the indices must contain a non-null Position
+	 * @return Board arrays as [y][x]. All the indices must contain a non-null Position
 	 *         value.
 	 */
 	public void setBoard(Position[][] board) {
