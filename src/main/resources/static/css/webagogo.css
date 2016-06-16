@@ -1,0 +1,11 @@
+.debugText {
+	font-size: 10px;
+}
+
+#boardCanvasContainer {
+	text-align: center;
+}
+
+#boardCanvas {
+	border-style: solid;
+}
