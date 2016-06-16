@@ -77,8 +77,9 @@ public class DefaultRules implements Rules {
 	 */
 	protected Position[][] createInitialBoard() {
 		Position[][] board = new Position[getBoardSize()][getBoardSize()];
-		for (int x = 0; x < board.length; x++) {
-			Arrays.fill(board[x], Position.FREE);
+		// Fill each line (y) with FREE positions
+		for (int y = 0; y < board.length; y++) {
+			Arrays.fill(board[y], Position.FREE);
 		}
 		return board;
 	}
