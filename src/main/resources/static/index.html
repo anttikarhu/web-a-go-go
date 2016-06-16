@@ -22,7 +22,9 @@
 					<!-- Board -->
 					<div id="boardCanvasContainer">
 						<div>
-							<canvas id="boardCanvas">Game should be here, but your browser does not seem to support canvas</canvas>
+							<canvas id="boardCanvas" ng-mousemove="boardMouseMove($event)"
+								ng-mouseleave="boardMouseLeave($event)"
+								ng-click="boardClicked($event)">Game should be here, but your browser does not seem to support canvas</canvas>
 						</div>
 						<button ng-click="newGame()">New game</button>
 
@@ -36,6 +38,7 @@
 			</div>
 			<script src="js/angular-bootstrap.js" type="text/javascript"></script>
 			<script src="js/webagogo.js"></script>
+			<script src="js/lodash.min.js"></script>
 		</div>
 	</div>
 </body>
