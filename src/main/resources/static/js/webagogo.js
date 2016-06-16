@@ -1,7 +1,7 @@
 angular.module('webagogo', [])
   .controller('webagogoCtrl', function($scope, $http) {
 
-	$http.get('/placePiece/').then(function(response) {
+	$http.get('/newGame/').then(function(response) {
 		console.log("Got data");
 		console.log(response.data);
 	})

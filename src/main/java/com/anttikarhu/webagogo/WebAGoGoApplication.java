@@ -1,9 +1,5 @@
 package com.anttikarhu.webagogo;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,31 +8,36 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anttikarhu.webagogo.rules.Rules;
+
+/**
+ * Go game application. Provides web UI with a fresh game board, rule checking
+ * and board update, and logs the events to database for later use.
+ * 
+ * @author Antti Karhu
+ * 
+ */
 @SpringBootApplication
 @RestController
 public class WebAGoGoApplication {
-	@RequestMapping("/placePiece")
-	public Map<String, Object> placePiece() {
-		// TODO The id comes as a parameter along with the piece placement info
-		// Game id is got when game is started, and it's supposed to be stored in the client until the game is over
-		Map<String, Object> model = new HashMap<String, Object>();
-		String id = UUID.randomUUID().toString();
-		model.put("id", id);
-		model.put("content", "Test");
 
-		try {
-			logToDb(id);
-		} catch (Exception e) {
-			System.err.println("Failed to save a log: " + e.getMessage());
-		}
-		return model;
+	@Autowired
+	private Rules rules;
+
+	/**
+	 * Creates a new game.
+	 */
+	@RequestMapping("/newGame")
+	public GameStatus newGame() {
+		return rules.newGame();
 	}
 
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 
+	@SuppressWarnings("unused")
 	private void logToDb(String id) {
-		// TODO Log piece placement info and game status
+		// TODO Just for reference, remove later
 		System.out.println("Sent an id: " + id);
 
 		ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
@@ -45,6 +46,9 @@ public class WebAGoGoApplication {
 		}
 	}
 
+	/**
+	 * Application entry point.
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(WebAGoGoApplication.class, args);
 	}
