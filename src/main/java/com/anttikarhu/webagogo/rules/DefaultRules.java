@@ -12,7 +12,7 @@ import com.anttikarhu.webagogo.StonePlacement;
 import com.anttikarhu.webagogo.Turn;
 
 /**
- * A set of default rules with 19x19 board.
+ * Default rules with 19x19 board.
  * 
  * @author Antti Karhu
  * 
@@ -54,14 +54,27 @@ public class DefaultRules implements Rules {
 		return UUID.randomUUID().toString();
 	}
 
+	/**
+	 * Gets a timestamp.
+	 * 
+	 * @return Timestamp in milliseconds.
+	 */
 	protected long getTimestamp() {
 		return System.currentTimeMillis();
 	}
 
+	/**
+	 * Gets the starting player.
+	 * 
+	 * @return Player.
+	 */
 	protected Turn getStartingPlayer() {
 		return Turn.BLACK;
 	}
 
+	/**
+	 * Creates an initial board. Uses {@link #getBoardSize()} to get the size.
+	 */
 	protected Position[][] createInitialBoard() {
 		Position[][] board = new Position[getBoardSize()][getBoardSize()];
 		for (int x = 0; x < board.length; x++) {

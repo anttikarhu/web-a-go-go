@@ -3,7 +3,7 @@ package com.anttikarhu.webagogo.rules;
 /**
  * Invalid move exception.
  * 
- * @author Antti
+ * @author Antti Karhu
  *
  */
 @SuppressWarnings("serial")
