@@ -115,15 +115,17 @@ angular.module('webagogo', []).constant('_', window._).controller(
 				// Draw board
 				drawBoard();
 
-				// Draw stones
-				for (var y = 0; y < $scope.game.board.length; y++) {
-					for (var x = 0; x < $scope.game.board.length; x++) {
-						if ($scope.game.board[y][x] === "BLACK"
-								|| $scope.game.board[y][x] === "WHITE") {
-							drawStone({
-								x : x,
-								y : y
-							}, $scope.game.board[y][x]);
+				if ($scope.game) {
+					// Draw stones
+					for (var y = 0; y < $scope.game.board.length; y++) {
+						for (var x = 0; x < $scope.game.board.length; x++) {
+							if ($scope.game.board[y][x] === "BLACK"
+									|| $scope.game.board[y][x] === "WHITE") {
+								drawStone({
+									x : x,
+									y : y
+								}, $scope.game.board[y][x]);
+							}
 						}
 					}
 				}
@@ -147,6 +149,7 @@ angular.module('webagogo', []).constant('_', window._).controller(
 
 				$http.get('/newGame/').then(function(response) {
 					$scope.game = response.data;
+					boardSize = $scope.game.board.length;
 					drawBoard();
 				});
 			}
@@ -158,8 +161,10 @@ angular.module('webagogo', []).constant('_', window._).controller(
 				var boardY = _.clamp(event.offsetY - boardMargin, 0, gridSize);
 
 				// Determine which position is nearest to the coordinate
-				var posX = Math.round(boardX / lineSpacing);
-				var posY = Math.round(boardY / lineSpacing);
+				var posX = _.clamp(Math.round(boardX / lineSpacing), 0,
+						boardSize - 1);
+				var posY = _.clamp(Math.round(boardY / lineSpacing), 0,
+						boardSize - 1);
 
 				return {
 					x : posX,
@@ -171,7 +176,10 @@ angular.module('webagogo', []).constant('_', window._).controller(
 				// Draw a marker to the position so user knows where stone will
 				// be placed
 				drawGame();
-				drawMarker(translateMouseEventToPosCoords(event));
+				var pos = translateMouseEventToPosCoords(event);
+				if ($scope.game && $scope.game.board[pos.y][pos.x] === "FREE") {
+					drawMarker(pos);
+				}
 			};
 
 			$scope.boardMouseLeave = function(event) {
@@ -183,7 +191,7 @@ angular.module('webagogo', []).constant('_', window._).controller(
 				// Stone is first placed to board, but it may be removed if
 				// server thinks it was not a proper move
 				var pos = translateMouseEventToPosCoords(event);
-				if ($scope.game.board[pos.y][pos.x] === "FREE") {
+				if ($scope.game && $scope.game.board[pos.y][pos.x] === "FREE") {
 					$scope.game.board[pos.y][pos.x] = $scope.game.playersTurn;
 					drawGame();
 
