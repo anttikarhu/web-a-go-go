@@ -4,7 +4,7 @@ import com.anttikarhu.webagogo.GameStatus;
 import com.anttikarhu.webagogo.StonePlacement;
 
 /**
- * Interface for Go rules. THe rules object will know how to create a new game,
+ * Interface for Go rules. The rules object will know how to create a new game,
  * and how the stone placement will affect the current game.
  * 
  * @author Antti Karhu
