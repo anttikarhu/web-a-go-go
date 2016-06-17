@@ -167,6 +167,11 @@ angular.module('webagogo', []).constant('_', window._).controller(
 			}
 			$scope.skipTurn = skipTurn;
 
+			function toggleRemoveMode() {
+				$scope.removeMode = !$scope.removeMode;
+			}
+			$scope.toggleRemoveMode = toggleRemoveMode;
+
 			function translateMouseEventToPosCoords(event) {
 				// Translate canvas coordinates to "board coordinates"
 				var boardX = _.clamp(event.offsetX - boardMargin, 0, gridSize);
@@ -189,7 +194,8 @@ angular.module('webagogo', []).constant('_', window._).controller(
 				// be placed
 				drawGame();
 				var pos = translateMouseEventToPosCoords(event);
-				if ($scope.game && $scope.game.board[pos.y][pos.x] === "FREE") {
+				if ($scope.game && !$scope.removeMode
+						&& $scope.game.board[pos.y][pos.x] === "FREE") {
 					drawMarker(pos);
 				}
 			};
@@ -204,27 +210,43 @@ angular.module('webagogo', []).constant('_', window._).controller(
 				// Stone is first placed to board, but it may be removed if
 				// server thinks it was not a proper move
 				var pos = translateMouseEventToPosCoords(event);
-				if ($scope.game && $scope.game.board[pos.y][pos.x] === "FREE") {
-					$scope.game.board[pos.y][pos.x] = $scope.game.playersTurn;
-					drawGame();
-
-					if ($scope.game.playersTurn === "BLACK") {
-						$scope.game.playersTurn = "WHITE";
-					} else {
-						$scope.game.playersTurn = "BLACK";
-					}
-			
-					// Send message to server
-					$http.get('/makeMove/', {
-						params : {
-							moveType: "PLACE_STONE",
-							x: pos.x,
-							y: pos.y,
-							gameId: $scope.game.gameId
+				if ($scope.game) {
+					if ($scope.removeMode) {
+						if($scope.game.board[pos.y][pos.x] === "WHITE" ||
+							$scope.game.board[pos.y][pos.x] === "BLACK") {
+							$http.get('/makeMove/', {
+								params : {
+									moveType : "REMOVE_STONE",
+									x : pos.x,
+									y : pos.y,
+									gameId : $scope.game.gameId
+								}
+							}).then(function(response) {
+								$scope.game = response.data;
+							});
 						}
-					}).then(function(response) {
-						$scope.game = response.data;
-					});
+					} else if ($scope.game.board[pos.y][pos.x] === "FREE") {
+						$scope.game.board[pos.y][pos.x] = $scope.game.playersTurn;
+						drawGame();
+
+						if ($scope.game.playersTurn === "BLACK") {
+							$scope.game.playersTurn = "WHITE";
+						} else {
+							$scope.game.playersTurn = "BLACK";
+						}
+
+						// Send message to server
+						$http.get('/makeMove/', {
+							params : {
+								moveType : "PLACE_STONE",
+								x : pos.x,
+								y : pos.y,
+								gameId : $scope.game.gameId
+							}
+						}).then(function(response) {
+							$scope.game = response.data;
+						});
+					}
 				}
 			};
 

@@ -52,6 +52,8 @@ public class DefaultRules implements Rules {
 			return placeStone(gameStatus, move);
 		} else if (move.getMoveType() == MoveType.SKIP) {
 			return skip(gameStatus, move);
+		} else if (move.getMoveType() == MoveType.REMOVE_STONE) {
+			return removeStone(gameStatus, move);
 		} else {
 			throw new InvalidMoveException();
 		}
@@ -146,6 +148,29 @@ public class DefaultRules implements Rules {
 	}
 
 	/**
+	 * Removes a stone from board.
+	 * 
+	 * @param gameStatus
+	 *            Game status.
+	 * @param move
+	 *            Proposed move.
+	 * @return Updated game status.
+	 * @throws InvalidMoveException
+	 *             Thrown if the move was invalid.
+	 */
+	protected GameStatus removeStone(GameStatus gameStatus, Move move) throws InvalidMoveException {
+		Position currentPosition = gameStatus.getBoard()[move.getY()][move.getX()];
+		if (currentPosition == Position.BLACK || currentPosition == Position.WHITE) {
+			gameStatus.getBoard()[move.getY()][move.getX()] = Position.FREE;
+		}
+
+		// Update game status, but don't change turn
+		updateStatus(gameStatus, move, false);
+
+		return gameStatus;
+	}
+
+	/**
 	 * Updates the game status.
 	 * 
 	 * @param gameStatus
@@ -154,9 +179,25 @@ public class DefaultRules implements Rules {
 	 *            Move.
 	 */
 	private void updateStatus(GameStatus gameStatus, Move move) {
+		updateStatus(gameStatus, move, true);
+	}
+
+	/**
+	 * Updates the game status.
+	 * 
+	 * @param gameStatus
+	 *            Game status.
+	 * @param move
+	 *            Move.
+	 * @param changeTurn
+	 *            Defines if the turn should change.
+	 */
+	private void updateStatus(GameStatus gameStatus, Move move, boolean changeTurn) {
 		move.setTurn(gameStatus.getPlayersTurn());
 		gameStatus.setPreviousMove(move);
-		gameStatus.changeTurn();
+		if (changeTurn) {
+			gameStatus.changeTurn();
+		}
 		gameStatus.updateTimestamp();
 	}
 }

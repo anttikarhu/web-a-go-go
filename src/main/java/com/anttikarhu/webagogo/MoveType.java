@@ -15,5 +15,10 @@ public enum MoveType {
 	/**
 	 * Player skips.
 	 */
-	SKIP
+	SKIP,
+
+	/**
+	 * Mode for removing stones, used during development
+	 */
+	REMOVE_STONE
 }
