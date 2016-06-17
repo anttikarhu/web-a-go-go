@@ -15,7 +15,8 @@
 	<div class="container">
 		<div ng-controller="webagogoCtrl" ng-cloak class="ng-cloak">
 			<h1 ng-show="!game">Please wait...</h1>
-			<h1 ng-show="game">Go {{game.playersTurn}} player!</h1>
+			<h1 ng-show="game && !removeMode">Go {{game.playersTurn}} player!</h1>
+			<h1 ng-show="game && removeMode">Remove stones</h1>
 
 			<div>
 				<div>
@@ -26,14 +27,15 @@
 								ng-mouseleave="boardMouseLeave($event)"
 								ng-click="boardClicked($event)">Game should be here, but your browser does not seem to support canvas</canvas>
 						</div>
-						<button ng-click="newGame()">New game</button>
-						<button ng-click="skipTurn()">Skip turn</button>
+						<button ng-click="newGame()" ng-disabled="removeMode">New game</button>
+						<button ng-click="skipTurn()" ng-disabled="removeMode">Skip turn</button>
+						<button ng-click="toggleRemoveMode()">{{removeMode ? "Finished removing" : "Remove stones"}}</button>
 
 						<div class="debugText">
 							<a ng-click="showDebug = !showDebug">{{showDebug ? 'Hide' :
 								'Show'}} game data</a>
 							<p ng-show="showDebug">{{game}}</p>
-						</div>
+						</div> 
 					</div>
 				</div>
 			</div>
