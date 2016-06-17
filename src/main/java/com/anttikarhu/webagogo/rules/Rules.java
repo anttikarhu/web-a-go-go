@@ -1,5 +1,6 @@
 package com.anttikarhu.webagogo.rules;
 
+import com.anttikarhu.webagogo.Game;
 import com.anttikarhu.webagogo.GameStatus;
 import com.anttikarhu.webagogo.Move;
 
@@ -22,9 +23,9 @@ public interface Rules {
 	/**
 	 * Creates a fresh game board and other needed data.
 	 * 
-	 * @return Initial game status.
+	 * @return Game with initial game status.
 	 */
-	public GameStatus newGame();
+	public Game newGame();
 
 	/**
 	 * Checks the move against the current game status, and either

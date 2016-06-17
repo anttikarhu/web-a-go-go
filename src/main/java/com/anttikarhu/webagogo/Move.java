@@ -1,17 +1,22 @@
 package com.anttikarhu.webagogo;
 
+import java.io.Serializable;
+
 /**
  * Contains information about the move.
  * 
  * @author Antti Karhu
  * 
  */
-public class Move {
+@SuppressWarnings("serial")
+public class Move implements Serializable {
 	private MoveType moveType;
 
 	private int x;
 
 	private int y;
+
+	private Turn turn;
 
 	private String gameId;
 
@@ -70,6 +75,25 @@ public class Move {
 	 */
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	/**
+	 * Gets the value which indicates who's turn it is. Client does not need to provide this information.
+	 * 
+	 * @return Who's turn it is.
+	 */
+	public Turn getTurn() {
+		return turn;
+	}
+
+	/**
+	 * Sets the value which indicates who's turn it is. Client does not need to provide this information.
+	 * 
+	 * @param turn
+	 *            Who's turn it is.
+	 */
+	public void setTurn(Turn turn) {
+		this.turn = turn;
 	}
 
 	/**
