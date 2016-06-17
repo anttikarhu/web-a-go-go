@@ -1,7 +1,7 @@
 package com.anttikarhu.webagogo.rules;
 
 import com.anttikarhu.webagogo.GameStatus;
-import com.anttikarhu.webagogo.StonePlacement;
+import com.anttikarhu.webagogo.Move;
 
 /**
  * Interface for Go rules. The rules object will know how to create a new game,
@@ -27,16 +27,16 @@ public interface Rules {
 	public GameStatus newGame();
 
 	/**
-	 * Checks the stone placement against the current game status, and either
+	 * Checks the move against the current game status, and either
 	 * returns a new status, or throws.
 	 * 
 	 * @param gameStatus
 	 *            Current game status.
-	 * @param stonePlacement
-	 *            Proposed stone placement.
-	 * @return New game status if the placement was legal.
+	 * @param move
+	 *            Proposed move, like skip or stone placement.
+	 * @return New game status if the move was legal.
 	 * @throws InvalidMoveException
-	 *             Thrown if the stone placement was not legal.
+	 *             Thrown if the move was not legal.
 	 */
-	public GameStatus placeStone(GameStatus gameStatus, StonePlacement stonePlacement) throws InvalidMoveException;
+	public GameStatus move(GameStatus gameStatus, Move move) throws InvalidMoveException;
 }

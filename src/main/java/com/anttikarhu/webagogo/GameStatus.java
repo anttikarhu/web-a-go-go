@@ -12,7 +12,7 @@ public class GameStatus {
 
 	private Long timestamp;
 
-	private StonePlacement previousMove;
+	private Move previousMove;
 
 	private Turn playersTurn;
 
@@ -63,7 +63,7 @@ public class GameStatus {
 	 * 
 	 * @return Previous move.
 	 */
-	public StonePlacement getPreviousMove() {
+	public Move getPreviousMove() {
 		return previousMove;
 	}
 
@@ -73,7 +73,7 @@ public class GameStatus {
 	 * @param previousMove
 	 *            Previous move.
 	 */
-	public void setPreviousMove(StonePlacement previousMove) {
+	public void setPreviousMove(Move previousMove) {
 		this.previousMove = previousMove;
 	}
 
@@ -113,5 +113,23 @@ public class GameStatus {
 	 */
 	public void setBoard(Position[][] board) {
 		this.board = board;
+	}
+
+	/**
+	 * Changes the player in turn.
+	 */
+	public void changeTurn() {
+		if (getPlayersTurn() == Turn.BLACK) {
+			setPlayersTurn(Turn.WHITE);
+		} else {
+			setPlayersTurn(Turn.BLACK);
+		}
+	}
+
+	/**
+	 * Updates the timestamp.
+	 */
+	public void updateTimestamp() {
+		setTimestamp(System.currentTimeMillis());
 	}
 }
