@@ -155,6 +155,18 @@ angular.module('webagogo', []).constant('_', window._).controller(
 			}
 			$scope.newGame = newGame;
 
+			function skipTurn() {
+				$http.get('/makeMove/', {
+					params : {
+						moveType: "SKIP",
+						gameId: $scope.game.gameId
+					}
+				}).then(function(response) {
+					$scope.game = response.data;
+				});
+			}
+			$scope.skipTurn = skipTurn;
+
 			function translateMouseEventToPosCoords(event) {
 				// Translate canvas coordinates to "board coordinates"
 				var boardX = _.clamp(event.offsetX - boardMargin, 0, gridSize);
