@@ -117,10 +117,7 @@ public class DefaultRules implements Rules {
 		gameStatus.getBoard()[move.getY()][move.getX()] = position;
 
 		// Update game status after valid move
-		move.setTurn(gameStatus.getPlayersTurn());
-		gameStatus.setPreviousMove(move);
-		gameStatus.changeTurn();
-		gameStatus.updateTimestamp();
+		updateStatus(gameStatus, move);
 
 		return gameStatus;
 	}
@@ -137,7 +134,29 @@ public class DefaultRules implements Rules {
 	 *             Thrown if the move was invalid.
 	 */
 	protected GameStatus skip(GameStatus gameStatus, Move move) throws InvalidMoveException {
-		// TODO Check situation and end game if needed
+		// Check situation and end game if needed
+		if (gameStatus.getPreviousMove() != null && gameStatus.getPreviousMove().getMoveType() == MoveType.SKIP) {
+			// TODO Game ended, end it properly
+			return gameStatus;
+		} else {
+			updateStatus(gameStatus, move);
+		}
+
 		return gameStatus;
+	}
+
+	/**
+	 * Updates the game status.
+	 * 
+	 * @param gameStatus
+	 *            Game status.
+	 * @param move
+	 *            Move.
+	 */
+	private void updateStatus(GameStatus gameStatus, Move move) {
+		move.setTurn(gameStatus.getPlayersTurn());
+		gameStatus.setPreviousMove(move);
+		gameStatus.changeTurn();
+		gameStatus.updateTimestamp();
 	}
 }

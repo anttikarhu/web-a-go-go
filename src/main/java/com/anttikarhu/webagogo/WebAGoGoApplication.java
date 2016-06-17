@@ -29,6 +29,7 @@ public class WebAGoGoApplication {
 
 	/**
 	 * Creates a new game and returns initial game status.
+	 * @return Initial game status.
 	 */
 	@RequestMapping("/newGame")
 	public GameStatus newGame() {
@@ -38,6 +39,11 @@ public class WebAGoGoApplication {
 		return newGame.getGameStatuses().get(0);
 	}
 
+	/**
+	 * Makes a move.
+	 * @param move Proposed move.
+	 * @return Updated game status.
+	 */
 	@RequestMapping("/makeMove")
 	public GameStatus makeMove(Move move) {
 		// Get game status from storage by id
