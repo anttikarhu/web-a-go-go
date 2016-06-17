@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.anttikarhu.webagogo.GameStatus;
 import com.anttikarhu.webagogo.Position;
-import com.anttikarhu.webagogo.StonePlacement;
+import com.anttikarhu.webagogo.Move;
+import com.anttikarhu.webagogo.MoveType;
 import com.anttikarhu.webagogo.Turn;
 
 /**
@@ -40,9 +41,14 @@ public class DefaultRules implements Rules {
 	}
 
 	@Override
-	public GameStatus placeStone(GameStatus gameStatus, StonePlacement stonePlacement) throws InvalidMoveException {
-		// TODO Check situation, place stone, alter status
-		return gameStatus;
+	public GameStatus move(GameStatus gameStatus, Move move) throws InvalidMoveException {
+		if (move.getMoveType() == MoveType.PLACE_STONE) {
+			return placeStone(gameStatus, move);
+		} else if (move.getMoveType() == MoveType.SKIP) {
+			return skip(gameStatus, move);
+		} else {
+			throw new InvalidMoveException();
+		}
 	}
 
 	/**
@@ -82,5 +88,49 @@ public class DefaultRules implements Rules {
 			Arrays.fill(board[y], Position.FREE);
 		}
 		return board;
+	}
+
+	/**
+	 * Handles the stone placement.
+	 * 
+	 * @param gameStatus
+	 *            Game status.
+	 * @param move
+	 *            Proposed move.
+	 * @return Updated game status.
+	 * @throws InvalidMoveException
+	 *             Thrown if the move was invalid.
+	 */
+	protected GameStatus placeStone(GameStatus gameStatus, Move move) throws InvalidMoveException {
+		// TODO Check situation, skip or place stone, alter status
+		// For now we just accept the move as is
+		Position position = Position.BLACK;
+		if (gameStatus.getPlayersTurn() == Turn.WHITE) {
+			position = Position.WHITE;
+		}
+		gameStatus.getBoard()[move.getY()][move.getX()] = position;
+
+		// Update game status after valid move
+		gameStatus.changeTurn();
+		gameStatus.updateTimestamp();
+		gameStatus.setPreviousMove(move);
+
+		return gameStatus;
+	}
+
+	/**
+	 * Handles the skip.
+	 * 
+	 * @param gameStatus
+	 *            Game status.
+	 * @param move
+	 *            Proposed move.
+	 * @return Updated game status.
+	 * @throws InvalidMoveException
+	 *             Thrown if the move was invalid.
+	 */
+	protected GameStatus skip(GameStatus gameStatus, Move move) throws InvalidMoveException {
+		// TODO Check situation and end game if needed
+		return gameStatus;
 	}
 }

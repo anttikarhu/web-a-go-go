@@ -1,17 +1,38 @@
 package com.anttikarhu.webagogo;
 
 /**
- * Contains information about the stone placement.
+ * Contains information about the move.
  * 
  * @author Antti Karhu
  * 
  */
-public class StonePlacement {
+public class Move {
+	private MoveType moveType;
+
 	private int x;
 
 	private int y;
 
 	private String gameId;
+
+	/**
+	 * Gets the move type.
+	 * 
+	 * @return Move type.
+	 */
+	public MoveType getMoveType() {
+		return moveType;
+	}
+
+	/**
+	 * Sets the move type.
+	 * 
+	 * @param moveType
+	 *            Move type.
+	 */
+	public void setMoveType(MoveType moveType) {
+		this.moveType = moveType;
+	}
 
 	/**
 	 * Gets the X coordinate of the stone position.

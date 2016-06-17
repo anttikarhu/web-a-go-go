@@ -183,7 +183,8 @@ angular.module('webagogo', []).constant('_', window._).controller(
 			};
 
 			$scope.boardMouseLeave = function(event) {
-				// Refresh board when mouse leaves canvas
+				// Refresh board when mouse leaves canvas so the marker does
+				// not linger there
 				drawGame();
 			};
 
@@ -200,8 +201,18 @@ angular.module('webagogo', []).constant('_', window._).controller(
 					} else {
 						$scope.game.playersTurn = "BLACK";
 					}
-					
-					// TODO Send message to server
+			
+					// Send message to server
+					$http.get('/makeMove/', {
+						params : {
+							moveType: "PLACE_STONE",
+							x: pos.x,
+							y: pos.y,
+							gameId: $scope.game.gameId
+						}
+					}).then(function(response) {
+						$scope.game = response.data;
+					});
 				}
 			};
 
