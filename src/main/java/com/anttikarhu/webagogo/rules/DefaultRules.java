@@ -1,11 +1,13 @@
 package com.anttikarhu.webagogo.rules;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.stereotype.Component;
 
+import com.anttikarhu.webagogo.Game;
 import com.anttikarhu.webagogo.GameStatus;
 import com.anttikarhu.webagogo.Position;
 import com.anttikarhu.webagogo.Move;
@@ -28,14 +30,18 @@ public class DefaultRules implements Rules {
 	}
 
 	@Override
-	public GameStatus newGame() {
-		GameStatus newGame = new GameStatus();
+	public Game newGame() {
+		Game newGame = new Game();
+		newGame.setId(createId());
 
-		newGame.setGameId(createId());
-		newGame.setTimestamp(getTimestamp());
-		newGame.setPlayersTurn(getStartingPlayer());
-		newGame.setBoard(createInitialBoard());
-		newGame.setPreviousMove(null);
+		GameStatus initialStatus = new GameStatus();
+		initialStatus.setGameId(newGame.getId());
+		initialStatus.setTimestamp(getTimestamp());
+		initialStatus.setPlayersTurn(getStartingPlayer());
+		initialStatus.setBoard(createInitialBoard());
+		initialStatus.setPreviousMove(null);
+
+		newGame.setGameStatuses(new ArrayList<>(Arrays.asList(initialStatus)));
 
 		return newGame;
 	}
@@ -111,9 +117,10 @@ public class DefaultRules implements Rules {
 		gameStatus.getBoard()[move.getY()][move.getX()] = position;
 
 		// Update game status after valid move
+		move.setTurn(gameStatus.getPlayersTurn());
+		gameStatus.setPreviousMove(move);
 		gameStatus.changeTurn();
 		gameStatus.updateTimestamp();
-		gameStatus.setPreviousMove(move);
 
 		return gameStatus;
 	}

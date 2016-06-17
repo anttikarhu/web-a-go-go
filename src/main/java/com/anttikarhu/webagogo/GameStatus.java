@@ -1,12 +1,15 @@
 package com.anttikarhu.webagogo;
 
+import java.io.Serializable;
+
 /**
  * Current game status with game id, timestamp and the stuff about the game.
  * 
  * @author Antti Karhu
  * 
  */
-public class GameStatus {
+@SuppressWarnings("serial")
+public class GameStatus implements Serializable {
 
 	private String gameId;
 
@@ -99,7 +102,8 @@ public class GameStatus {
 	/**
 	 * Gets the board. Board is a grid of stone positions, or intersections.
 	 * 
-	 * @return Board arrays as [y][x]. All the indices contain a non-null Position value.
+	 * @return Board arrays as [y][x]. All the indices contain a non-null
+	 *         Position value.
 	 */
 	public Position[][] getBoard() {
 		return board;
@@ -108,8 +112,8 @@ public class GameStatus {
 	/**
 	 * Sets the board. Board is a grid of stone positions, or intersections.
 	 * 
-	 * @return Board arrays as [y][x]. All the indices must contain a non-null Position
-	 *         value.
+	 * @return Board arrays as [y][x]. All the indices must contain a non-null
+	 *         Position value.
 	 */
 	public void setBoard(Position[][] board) {
 		this.board = board;
