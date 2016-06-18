@@ -23,7 +23,7 @@ This project has a Spring Boot backend, and an AngularJS frontend. The Spring Bo
 * This is just an excerise :)
 * Game ending and scoring is not implemented
 * Remove stones button should be removed
-* makeMove has no integration test, so it's not necessarely perfectly robust
+* "makeMove" has no integration test, so it's not necessarely perfectly robust
 * Integration tests use the "live" Redis database, it should be mocked
 * Error handling is not finished, for example UI does not show reasons for rejected moves
-* suicide rule has not been implemented
+* Suicide prevention rule has not been implemented
