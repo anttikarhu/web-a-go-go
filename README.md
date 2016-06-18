@@ -29,4 +29,4 @@ This project has a Spring Boot backend, and an AngularJS frontend. The Spring Bo
 * Error handling is not finished, for example UI does not show reasons for rejected moves
 * Suicide prevention rule has not been implemented
 * Frontend JavaScript code could be reorganized in smaller modules
-* Board is not drawn properly for different board sized
+* Board is not drawn properly for different board sizes
