@@ -13,6 +13,7 @@ This is also the first time I create a project on GitHub, so: Hello World!
 # Building and running
 * Check out the source code by typing `git clone https://github.com/anttikarhu/web-a-go-go.git web-a-go-go`
 * Go to the folder `cd web-a-go-go`
+* Ensure that Redis is running, for example for Mac run `redis-server`. For Windows, see that the Redis service is running
 * Type `mvn spring-boot:run`
 * Open [http://localhost:8080/](http://localhost:8080/) in your web browser
 
