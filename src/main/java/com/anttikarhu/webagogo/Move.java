@@ -109,7 +109,7 @@ public class Move implements Serializable {
 	}
 
 	/**
-	 * pdated after play. A number of stones the play captured.
+	 * Updated after play. A number of stones the play captured.
 	 * @param stonesCaptured Number of stones captured.
 	 */
 	public void setStonesCaptured(Integer stonesCaptured) {
