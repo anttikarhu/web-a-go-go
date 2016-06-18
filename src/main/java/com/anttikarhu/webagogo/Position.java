@@ -8,7 +8,7 @@ package com.anttikarhu.webagogo;
  */
 public enum Position {
 	/**
-	 * Position is free and can accept a stone.
+	 * Position has no stone.
 	 */
 	FREE,
 
@@ -20,15 +20,5 @@ public enum Position {
 	/**
 	 * There's a white stone in the position.
 	 */
-	WHITE,
-
-	/**
-	 * There is no stone at the position, but it's blocked by black player.
-	 */
-	BLOCKED_BY_BLACK,
-
-	/**
-	 * There is no stone at the position, but it's blocked by white player.
-	 */
-	BLOCKED_BY_WHITE
+	WHITE
 }

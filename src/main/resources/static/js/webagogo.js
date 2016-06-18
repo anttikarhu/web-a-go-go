@@ -155,17 +155,17 @@ angular.module('webagogo', []).constant('_', window._).controller(
 			}
 			$scope.newGame = newGame;
 
-			function skipTurn() {
+			function passTurn() {
 				$http.get('/makeMove/', {
 					params : {
-						moveType: "SKIP",
+						moveType: "PASS",
 						gameId: $scope.game.gameId
 					}
 				}).then(function(response) {
 					$scope.game = response.data;
 				});
 			}
-			$scope.skipTurn = skipTurn;
+			$scope.passTurn = passTurn;
 
 			function toggleRemoveMode() {
 				$scope.removeMode = !$scope.removeMode;
@@ -214,6 +214,10 @@ angular.module('webagogo', []).constant('_', window._).controller(
 					if ($scope.removeMode) {
 						if($scope.game.board[pos.y][pos.x] === "WHITE" ||
 							$scope.game.board[pos.y][pos.x] === "BLACK") {
+							// Remove stone
+							$scope.game.board[pos.y][pos.x] = "FREE";
+							drawGame();
+
 							$http.get('/makeMove/', {
 								params : {
 									moveType : "REMOVE_STONE",
@@ -238,7 +242,7 @@ angular.module('webagogo', []).constant('_', window._).controller(
 						// Send message to server
 						$http.get('/makeMove/', {
 							params : {
-								moveType : "PLACE_STONE",
+								moveType : "PLAY",
 								x : pos.x,
 								y : pos.y,
 								gameId : $scope.game.gameId
@@ -250,7 +254,7 @@ angular.module('webagogo', []).constant('_', window._).controller(
 				}
 			};
 
-			// Ready start
+			// Ready to start
 			drawBoard();
 			newGame();
 	});

@@ -28,7 +28,7 @@
 								ng-click="boardClicked($event)">Game should be here, but your browser does not seem to support canvas</canvas>
 						</div>
 						<button ng-click="newGame()" ng-disabled="removeMode">New game</button>
-						<button ng-click="skipTurn()" ng-disabled="removeMode">Skip turn</button>
+						<button ng-click="passTurn()" ng-disabled="removeMode">Pass</button>
 						<button ng-click="toggleRemoveMode()">{{removeMode ? "Finished removing" : "Remove stones"}}</button>
 
 						<div class="debugText">
