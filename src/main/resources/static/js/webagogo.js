@@ -192,10 +192,10 @@ angular.module('webagogo', []).constant('_', window._).controller(
 			$scope.boardMouseMove = function(event) {
 				// Draw a marker to the position so user knows where stone will
 				// be placed
-				drawGame();
 				var pos = translateMouseEventToPosCoords(event);
 				if ($scope.game && !$scope.removeMode
 						&& $scope.game.board[pos.y][pos.x] === "FREE") {
+					drawGame();
 					drawMarker(pos);
 				}
 			};

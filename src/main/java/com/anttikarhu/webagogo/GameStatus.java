@@ -125,11 +125,4 @@ public class GameStatus implements Serializable {
 	public void changeTurn() {
 		setPlayersTurn(getPlayersTurn().getOtherTurn());
 	}
-
-	/**
-	 * Updates the timestamp.
-	 */
-	public void updateTimestamp() {
-		setTimestamp(System.currentTimeMillis());
-	}
 }

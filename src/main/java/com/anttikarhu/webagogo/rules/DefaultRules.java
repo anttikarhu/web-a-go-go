@@ -214,6 +214,6 @@ public class DefaultRules implements Rules {
 		if (changeTurn) {
 			gameStatus.changeTurn();
 		}
-		gameStatus.updateTimestamp();
+		gameStatus.setTimestamp(getTimestamp());
 	}
 }

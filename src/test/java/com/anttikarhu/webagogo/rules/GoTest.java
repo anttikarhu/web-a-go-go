@@ -191,8 +191,9 @@ public class GoTest {
 
 	@Test
 	public void testDoNotRemoveAnyStonesWithNoLiberty() throws Exception {
-		// WHITE has 'played' at 3,1
-		Position[][] board ={ { Position.FREE, Position.FREE, Position.BLACK, Position.BLACK, Position.FREE },
+		// Now we check for self capture after the capture in last test, which
+		// should not occur
+		Position[][] board = { { Position.FREE, Position.FREE, Position.BLACK, Position.BLACK, Position.FREE },
 				{ Position.WHITE, Position.WHITE, Position.FREE, Position.WHITE, Position.FREE },
 				{ Position.WHITE, Position.FREE, Position.WHITE, Position.FREE, Position.WHITE },
 				{ Position.FREE, Position.WHITE, Position.FREE, Position.FREE, Position.WHITE },
