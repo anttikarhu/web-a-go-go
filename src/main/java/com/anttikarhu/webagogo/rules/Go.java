@@ -6,6 +6,7 @@ import java.util.List;
 import com.anttikarhu.webagogo.GameStatus;
 import com.anttikarhu.webagogo.Move;
 import com.anttikarhu.webagogo.Position;
+import com.anttikarhu.webagogo.Turn;
 
 /**
  * Go rules calculation helper class.
@@ -30,8 +31,13 @@ public class Go {
 			// Only need to test for adjacent intersections
 			if (isAdjacent(gameStatus.getPreviousMove().getX(), gameStatus.getPreviousMove().getY(), move.getX(),
 					move.getY())) {
+				// Clone the board because this is a read only operation
+				Position[][] board = new Position[gameStatus.getBoard().length][];
+				for (int y = 0; y < board.length; y++) {
+					board[y] = gameStatus.getBoard()[y].clone();
+				}
+
 				// Place stone
-				Position[][] board = gameStatus.getBoard();
 				board[move.getY()][move.getX()] = move.getTurn().getStone();
 
 				// And test for liberty
@@ -141,6 +147,30 @@ public class Go {
 		}
 
 		return adjacent.toArray(new PositionInfo[adjacent.size()]);
+	}
+
+	public static int removeStonesWithNoLiberty(Position[][] board, Turn stonesToRemove) {
+		// We mark the to-be-removed stones here
+		boolean[][] removeMatrix = new boolean[board.length][board.length];
+		int removeCount = 0;
+
+		for (int y = 0; y < board.length; y++) {
+			for (int x = 0; x < board.length; x++) {
+				if (board[y][x] == stonesToRemove.getStone() && !hasLiberties(board, x, y)) {
+					removeMatrix[y][x] = true;
+					removeCount++;
+				}
+			}
+		}
+
+		// Remove stones by marking the positions free
+		for (int y = 0; y < board.length; y++) {
+			for (int x = 0; x < board.length; x++) {
+				board[y][x] = removeMatrix[y][x] ? Position.FREE : board[y][x];
+			}
+		}
+
+		return removeCount;
 	}
 
 	/**

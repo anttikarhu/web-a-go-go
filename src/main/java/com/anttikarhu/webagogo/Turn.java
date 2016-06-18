@@ -28,4 +28,16 @@ public enum Turn {
 			return Position.WHITE;
 		}
 	}
+
+	/**
+	 * Returns the other turn.
+	 * @return Other turn.
+	 */
+	public Turn getOtherTurn() {
+		if (this == Turn.BLACK) {
+			return Turn.WHITE;
+		} else {
+			return Turn.BLACK;
+		}
+	}
 }

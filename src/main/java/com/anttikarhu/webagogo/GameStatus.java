@@ -123,11 +123,7 @@ public class GameStatus implements Serializable {
 	 * Changes the player in turn.
 	 */
 	public void changeTurn() {
-		if (getPlayersTurn() == Turn.BLACK) {
-			setPlayersTurn(Turn.WHITE);
-		} else {
-			setPlayersTurn(Turn.BLACK);
-		}
+		setPlayersTurn(getPlayersTurn().getOtherTurn());
 	}
 
 	/**
