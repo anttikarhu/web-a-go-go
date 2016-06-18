@@ -48,10 +48,10 @@ public class DefaultRules implements Rules {
 
 	@Override
 	public GameStatus move(GameStatus gameStatus, Move move) throws InvalidMoveException {
-		if (move.getMoveType() == MoveType.PLACE_STONE) {
-			return placeStone(gameStatus, move);
-		} else if (move.getMoveType() == MoveType.SKIP) {
-			return skip(gameStatus, move);
+		if (move.getMoveType() == MoveType.PLAY) {
+			return play(gameStatus, move);
+		} else if (move.getMoveType() == MoveType.PASS) {
+			return pass(gameStatus, move);
 		} else if (move.getMoveType() == MoveType.REMOVE_STONE) {
 			return removeStone(gameStatus, move);
 		} else {
@@ -99,7 +99,7 @@ public class DefaultRules implements Rules {
 	}
 
 	/**
-	 * Handles the stone placement.
+	 * Handles the play.
 	 * 
 	 * @param gameStatus
 	 *            Game status.
@@ -109,7 +109,7 @@ public class DefaultRules implements Rules {
 	 * @throws InvalidMoveException
 	 *             Thrown if the move was invalid.
 	 */
-	protected GameStatus placeStone(GameStatus gameStatus, Move move) throws InvalidMoveException {
+	protected GameStatus play(GameStatus gameStatus, Move move) throws InvalidMoveException {
 		// TODO Check situation, skip or place stone, alter status
 		// For now we just accept the move as is
 		Position position = Position.BLACK;
@@ -125,7 +125,7 @@ public class DefaultRules implements Rules {
 	}
 
 	/**
-	 * Handles the skip.
+	 * Handles the pass.
 	 * 
 	 * @param gameStatus
 	 *            Game status.
@@ -135,9 +135,9 @@ public class DefaultRules implements Rules {
 	 * @throws InvalidMoveException
 	 *             Thrown if the move was invalid.
 	 */
-	protected GameStatus skip(GameStatus gameStatus, Move move) throws InvalidMoveException {
+	protected GameStatus pass(GameStatus gameStatus, Move move) throws InvalidMoveException {
 		// Check situation and end game if needed
-		if (gameStatus.getPreviousMove() != null && gameStatus.getPreviousMove().getMoveType() == MoveType.SKIP) {
+		if (gameStatus.getPreviousMove() != null && gameStatus.getPreviousMove().getMoveType() == MoveType.PASS) {
 			// TODO Game ended, end it properly
 			return gameStatus;
 		} else {

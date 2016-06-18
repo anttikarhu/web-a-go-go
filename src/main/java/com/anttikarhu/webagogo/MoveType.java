@@ -10,12 +10,12 @@ public enum MoveType {
 	/**
 	 * Player places a stone.
 	 */
-	PLACE_STONE,
+	PLAY,
 
 	/**
-	 * Player skips.
+	 * Player skips a turn.
 	 */
-	SKIP,
+	PASS,
 
 	/**
 	 * Mode for removing stones, used during development
