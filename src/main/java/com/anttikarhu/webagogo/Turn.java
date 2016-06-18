@@ -15,5 +15,17 @@ public enum Turn {
 	/**
 	 * It's white player's turn.
 	 */
-	WHITE
+	WHITE;
+
+	/**
+	 * Helper method for getting a proper stone.
+	 * @return Position/stone that matches a turn.
+	 */
+	public Position getStone() {
+		if (this == Turn.BLACK) {
+			return Position.BLACK;
+		} else {
+			return Position.WHITE;
+		}
+	}
 }

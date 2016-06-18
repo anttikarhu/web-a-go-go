@@ -47,7 +47,7 @@ public class DefaultRules implements Rules {
 	}
 
 	@Override
-	public GameStatus move(GameStatus gameStatus, Move move) throws InvalidMoveException {
+	public GameStatus move(Game game, GameStatus gameStatus, Move move) throws InvalidMoveException {
 		if (move.getMoveType() == MoveType.PLAY) {
 			return play(gameStatus, move);
 		} else if (move.getMoveType() == MoveType.PASS) {
@@ -110,13 +110,26 @@ public class DefaultRules implements Rules {
 	 *             Thrown if the move was invalid.
 	 */
 	protected GameStatus play(GameStatus gameStatus, Move move) throws InvalidMoveException {
-		// TODO Check situation, skip or place stone, alter status
-		// For now we just accept the move as is
+		// Check for suicide
+		if (Go.causesSuicide(gameStatus, move)) {
+			throw new InvalidMoveException();
+		}
+
+		// Check for repetition
+		if (Go.causesRepetition(gameStatus, move)) {
+			throw new InvalidMoveException();
+		}
+
+		// Put stone
 		Position position = Position.BLACK;
 		if (gameStatus.getPlayersTurn() == Turn.WHITE) {
 			position = Position.WHITE;
 		}
 		gameStatus.getBoard()[move.getY()][move.getX()] = position;
+
+		// TODO Remove opponent stones with no liberty
+		
+		// TODO Remove own stones with no liberty
 
 		// Update game status after valid move
 		updateStatus(gameStatus, move);
