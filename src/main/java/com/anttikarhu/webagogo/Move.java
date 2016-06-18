@@ -18,6 +18,8 @@ public class Move implements Serializable {
 
 	private Turn turn;
 
+	private Integer stonesCaptured;
+
 	private String gameId;
 
 	/**
@@ -78,7 +80,8 @@ public class Move implements Serializable {
 	}
 
 	/**
-	 * Gets the value which indicates who's turn it is. Client does not need to provide this information.
+	 * Gets the value which indicates who's turn it is. Client does not need to
+	 * provide this information.
 	 * 
 	 * @return Who's turn it is.
 	 */
@@ -87,13 +90,30 @@ public class Move implements Serializable {
 	}
 
 	/**
-	 * Sets the value which indicates who's turn it is. Client does not need to provide this information.
+	 * Sets the value which indicates who's turn it is. Client does not need to
+	 * provide this information.
 	 * 
 	 * @param turn
 	 *            Who's turn it is.
 	 */
 	public void setTurn(Turn turn) {
 		this.turn = turn;
+	}
+
+	/**
+	 * Updated after play. A number of stones the play captured.
+	 * @return Null if not played, or number of stones captured.
+	 */
+	public Integer getStonesCaptured() {
+		return stonesCaptured;
+	}
+
+	/**
+	 * pdated after play. A number of stones the play captured.
+	 * @param stonesCaptured Number of stones captured.
+	 */
+	public void setStonesCaptured(Integer stonesCaptured) {
+		this.stonesCaptured = stonesCaptured;
 	}
 
 	/**
@@ -114,4 +134,5 @@ public class Move implements Serializable {
 	public void setGameId(String gameId) {
 		this.gameId = gameId;
 	}
+
 }

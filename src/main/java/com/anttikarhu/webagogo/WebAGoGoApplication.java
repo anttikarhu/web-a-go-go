@@ -52,7 +52,7 @@ public class WebAGoGoApplication {
 
 		if (gameStatus != null) {
 			try {
-				gameStatus = rules.move(gameStatus, move);
+				gameStatus = rules.move(game, gameStatus, move);
 			} catch (InvalidMoveException e) {
 				// TODO Add error message to game status
 			}

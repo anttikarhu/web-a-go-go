@@ -28,9 +28,11 @@ public interface Rules {
 	public Game newGame();
 
 	/**
-	 * Checks the move against the current game status, and either
-	 * returns a new status, or throws.
+	 * Checks the move against the current game status, and either returns a new
+	 * status, or throws.
 	 * 
+	 * @param game
+	 *            Game.
 	 * @param gameStatus
 	 *            Current game status.
 	 * @param move
@@ -39,5 +41,5 @@ public interface Rules {
 	 * @throws InvalidMoveException
 	 *             Thrown if the move was not legal.
 	 */
-	public GameStatus move(GameStatus gameStatus, Move move) throws InvalidMoveException;
+	public GameStatus move(Game game, GameStatus gameStatus, Move move) throws InvalidMoveException;
 }
