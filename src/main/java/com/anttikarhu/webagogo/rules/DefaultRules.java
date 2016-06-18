@@ -127,12 +127,15 @@ public class DefaultRules implements Rules {
 		}
 		gameStatus.getBoard()[move.getY()][move.getX()] = position;
 
-		// TODO Remove opponent stones with no liberty
-		
-		// TODO Remove own stones with no liberty
+		// Remove opponent's stones with no liberty
+		int removeCount = Go.removeStonesWithNoLiberty(gameStatus.getBoard(), move.getTurn().getOtherTurn());
+
+		// Remove own stones with no liberty
+		removeCount += Go.removeStonesWithNoLiberty(gameStatus.getBoard(), move.getTurn());
 
 		// Update game status after valid move
 		updateStatus(gameStatus, move);
+		gameStatus.getPreviousMove().setStonesCaptured(removeCount);
 
 		return gameStatus;
 	}

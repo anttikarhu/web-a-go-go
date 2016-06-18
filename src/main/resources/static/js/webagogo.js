@@ -227,6 +227,7 @@ angular.module('webagogo', []).constant('_', window._).controller(
 								}
 							}).then(function(response) {
 								$scope.game = response.data;
+								drawGame();
 							});
 						}
 					} else if ($scope.game.board[pos.y][pos.x] === "FREE") {
@@ -249,6 +250,7 @@ angular.module('webagogo', []).constant('_', window._).controller(
 							}
 						}).then(function(response) {
 							$scope.game = response.data;
+							drawGame();
 						});
 					}
 				}

@@ -49,4 +49,6 @@ public class WebAGoGoApplicationTests {
 				.andExpect(jsonPath("$.playersTurn", is("BLACK")))
 				.andExpect(jsonPath("$.board", hasSize(5)));
 	}
+
+	// TODO Tests for makeMove
 }

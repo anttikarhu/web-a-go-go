@@ -162,6 +162,62 @@ public class GoTest {
 	}
 
 	@Test
+	public void testRemoveStonesWithNoLiberty() throws Exception {
+		// WHITE has 'played' at 3,1
+		Position[][] board = { { Position.FREE, Position.FREE, Position.BLACK, Position.BLACK, Position.FREE },
+				{ Position.WHITE, Position.WHITE, Position.FREE, Position.WHITE, Position.FREE },
+				{ Position.WHITE, Position.BLACK, Position.WHITE, Position.BLACK, Position.WHITE },
+				{ Position.BLACK, Position.WHITE, Position.BLACK, Position.BLACK, Position.WHITE },
+				{ Position.BLACK, Position.BLACK, Position.WHITE, Position.WHITE, Position.FREE } };
+
+		// Removing stones of BLACK player
+		int removeCount = Go.removeStonesWithNoLiberty(board, Turn.BLACK);
+		assertThat(removeCount, is(7));
+
+		// Black stones should have been removed
+		Position[][] expectedBoard = { { Position.FREE, Position.FREE, Position.BLACK, Position.BLACK, Position.FREE },
+				{ Position.WHITE, Position.WHITE, Position.FREE, Position.WHITE, Position.FREE },
+				{ Position.WHITE, Position.FREE, Position.WHITE, Position.FREE, Position.WHITE },
+				{ Position.FREE, Position.WHITE, Position.FREE, Position.FREE, Position.WHITE },
+				{ Position.FREE, Position.FREE, Position.WHITE, Position.WHITE, Position.FREE } };
+
+		// Compare the boards
+		for (int y = 0; y < board.length; y++) {
+			for (int x = 0; x < board.length; x++) {
+				assertThat(board[y][x], is(expectedBoard[y][x]));
+			}
+		}
+	}
+
+	@Test
+	public void testDoNotRemoveAnyStonesWithNoLiberty() throws Exception {
+		// WHITE has 'played' at 3,1
+		Position[][] board ={ { Position.FREE, Position.FREE, Position.BLACK, Position.BLACK, Position.FREE },
+				{ Position.WHITE, Position.WHITE, Position.FREE, Position.WHITE, Position.FREE },
+				{ Position.WHITE, Position.FREE, Position.WHITE, Position.FREE, Position.WHITE },
+				{ Position.FREE, Position.WHITE, Position.FREE, Position.FREE, Position.WHITE },
+				{ Position.FREE, Position.FREE, Position.WHITE, Position.WHITE, Position.FREE } };
+
+		// (Not) removing stones of WHITE player
+		int removeCount = Go.removeStonesWithNoLiberty(board, Turn.WHITE);
+		assertThat(removeCount, is(0));
+
+		// No stones should be removed
+		Position[][] expectedBoard = { { Position.FREE, Position.FREE, Position.BLACK, Position.BLACK, Position.FREE },
+				{ Position.WHITE, Position.WHITE, Position.FREE, Position.WHITE, Position.FREE },
+				{ Position.WHITE, Position.FREE, Position.WHITE, Position.FREE, Position.WHITE },
+				{ Position.FREE, Position.WHITE, Position.FREE, Position.FREE, Position.WHITE },
+				{ Position.FREE, Position.FREE, Position.WHITE, Position.WHITE, Position.FREE } };
+
+		// Compare the boards
+		for (int y = 0; y < board.length; y++) {
+			for (int x = 0; x < board.length; x++) {
+				assertThat(board[y][x], is(expectedBoard[y][x]));
+			}
+		}
+	}
+
+	@Test
 	public void testCausesSuicidePositive() throws Exception {
 		// TODO Optional rule
 	}

@@ -29,6 +29,7 @@ public class WebAGoGoApplication {
 
 	/**
 	 * Creates a new game and returns initial game status.
+	 * 
 	 * @return Initial game status.
 	 */
 	@RequestMapping("/newGame")
@@ -41,27 +42,31 @@ public class WebAGoGoApplication {
 
 	/**
 	 * Makes a move.
-	 * @param move Proposed move.
+	 * 
+	 * @param move
+	 *            Proposed move.
 	 * @return Updated game status.
 	 */
 	@RequestMapping("/makeMove")
 	public GameStatus makeMove(Move move) {
 		// Get game status from storage by id
 		Game game = gameStorage.getGame(move.getGameId());
-		GameStatus gameStatus = game.getGameStatuses().get(game.getGameStatuses().size() - 1);
+		GameStatus currentStatus = game.getGameStatuses().get(game.getGameStatuses().size() - 1);
 
-		if (gameStatus != null) {
+		if (currentStatus != null) {
 			try {
-				gameStatus = rules.move(game, gameStatus, move);
-			} catch (InvalidMoveException e) {
-				// TODO Add error message to game status
-			}
+				move.setTurn(currentStatus.getPlayersTurn());
+				GameStatus newStatus = rules.move(game, currentStatus, move);
 
-			// Store the updated game status
-			gameStorage.addStatus(gameStatus);
+				// Store the updated game status
+				gameStorage.addStatus(newStatus);
+				return newStatus;
+			} catch (InvalidMoveException e) {
+				System.err.println("Invalid move, game status does not change");
+			}
 		}
 
-		return gameStatus;
+		return currentStatus;
 	}
 
 	/**
