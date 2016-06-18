@@ -17,4 +17,4 @@ This is also the first time I create a project on GitHub, so: Hello World!
 * Open [http://localhost:8080/](http://localhost:8080/) in your web browser
 
 # About the project
-This project has a Spring Boot backend, and an AngularJS frontend. The Spring Boot is at it's default configurations. The backend servers a html page along with the needed js and css files from an Embedded Tomcat, Spring Boot's default container, and these make up the UI frontend application running in the browser. Wro is used as a frontend dependency manager, just for good measure, and it's run in the Maven build. Game state is held at a Redis NoSQL database.
+This project has a Spring Boot backend, and an AngularJS frontend. The Spring Boot is at it's default configurations. The backend serves an html page along with the needed js and css files from an Embedded Tomcat, Spring Boot's default container, and these make up the UI frontend application running in the browser. Wro is used as a frontend dependency manager, just for good measure, and it's run on the Maven build. Game state is held at a Redis NoSQL database.
