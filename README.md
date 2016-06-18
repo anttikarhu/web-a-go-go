@@ -21,10 +21,8 @@ This is also the first time I create a project on GitHub, so: Hello World!
 This project has a Spring Boot backend, and an AngularJS frontend. The Spring Boot is at it's default configurations. The backend serves an html page along with the needed js and css files from an Embedded Tomcat, Spring Boot's default container, and these make up the UI frontend application running in the browser. The game is drawn to a HTML5 canvas. Wro is used as a frontend dependency manager, just for good measure, and it's run on the Maven build. Game state is held at a Redis NoSQL database.
 
 # TODOs and known issues
-* This is just an excerise :)
 * Game ending and scoring is not implemented
 * Remove stones button should be removed
-* "makeMove" has no integration test, so it's not necessarely perfectly robust
 * Integration tests use the "live" Redis database, it should be mocked
 * Error handling is not finished, for example UI does not show reasons for rejected moves
 * Suicide prevention rule has not been implemented
